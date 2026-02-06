@@ -31,13 +31,13 @@ export default function HomePage() {
       <section className="mx-auto max-w-7xl px-6 py-24">
         <div className="text-center">
           <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-6xl">
-            Document Intelligence
+            Commercial Onboarding
             <br />
-            <span className="text-primary">Verification Agent</span>
+            <span className="text-primary">Document Intelligence</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg text-muted-foreground">
-            Enter an application number to automatically fetch documents from the source system, validate completeness
-            against configuration, and process each document for quality, tampering, and data extraction.
+            UK commercial and institutional banking onboarding verification. Automatically fetch documents, validate against 
+            regulatory requirements (MLR 2017, FCA, JMLSG), and process for quality, tampering, and KYC data extraction.
           </p>
           <div className="mt-10 flex items-center justify-center gap-4">
             <Link href="/verify">
@@ -60,12 +60,11 @@ export default function HomePage() {
           <Card className="border-border bg-card">
             <CardHeader>
               <Search className="h-10 w-10 text-primary" />
-              <CardTitle className="mt-4">Auto-Fetch Documents</CardTitle>
+              <CardTitle className="mt-4">Companies House Integration</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription>
-                Automatically pull application details and uploaded documents from the source system using application
-                number.
+                Auto-fetch incorporation certificates, M&A documents, and filing history directly via Companies House API.
               </CardDescription>
             </CardContent>
           </Card>
@@ -73,12 +72,11 @@ export default function HomePage() {
           <Card className="border-border bg-card">
             <CardHeader>
               <FileCheck className="h-10 w-10 text-accent" />
-              <CardTitle className="mt-4">Completeness Check</CardTitle>
+              <CardTitle className="mt-4">Regulatory Compliance</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription>
-                Match fetched documents against configured requirements based on application type to identify missing
-                documents.
+                Validate documents against UK MLR 2017, FCA requirements, and JMLSG guidance based on customer complexity.
               </CardDescription>
             </CardContent>
           </Card>
@@ -86,12 +84,11 @@ export default function HomePage() {
           <Card className="border-border bg-card">
             <CardHeader>
               <Shield className="h-10 w-10 text-success" />
-              <CardTitle className="mt-4">Quality & Tampering</CardTitle>
+              <CardTitle className="mt-4">Enhanced Due Diligence</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription>
-                AI-powered analysis for document quality (blur, resolution) and fraud detection (manipulation,
-                anomalies).
+                Automated EDD checks for high-risk customers, PEP screening, sanctions checks (OFSI/OFAC), and adverse media.
               </CardDescription>
             </CardContent>
           </Card>
@@ -99,11 +96,11 @@ export default function HomePage() {
           <Card className="border-border bg-card">
             <CardHeader>
               <Brain className="h-10 w-10 text-warning" />
-              <CardTitle className="mt-4">AI Extraction</CardTitle>
+              <CardTitle className="mt-4">KYC/CDD Extraction</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription>
-                Extract key attributes from documents and verify them against application data with confidence scoring.
+                AI extraction of UBO details, director information, and cross-validation against application data.
               </CardDescription>
             </CardContent>
           </Card>
@@ -112,9 +109,9 @@ export default function HomePage() {
 
       <section className="border-t border-border bg-muted/30 py-16">
         <div className="mx-auto max-w-7xl px-6">
-          <h2 className="text-center text-2xl font-bold">Sample Applications</h2>
+          <h2 className="text-center text-2xl font-bold">Sample Corporate Applications</h2>
           <p className="mx-auto mt-2 max-w-xl text-center text-muted-foreground">
-            Try the verification flow with these pre-configured application numbers
+            Test with sample UK commercial banking applications across different complexity levels
           </p>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {sampleApplications.map((appNum) => (
