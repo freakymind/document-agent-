@@ -144,3 +144,92 @@ export interface DocumentMapping {
   confidence: number
   matchReason: string
 }
+
+// Agent Types
+export interface AgentStep {
+  id: string
+  name: string
+  status: 'pending' | 'running' | 'completed' | 'error'
+  message?: string
+  timestamp?: string
+}
+
+export interface InitialCheckResult {
+  applicationNumber: string
+  applicationType: string
+  applicationTypeName: string
+  requiredDocuments: {
+    code: string
+    name: string
+    isPresent: boolean
+    matchedDocument?: ExternalDocument
+    confidence?: number
+  }[]
+  completenessScore: number
+  missingCount: number
+  presentCount: number
+  recommendation: 'proceed' | 'missing_documents' | 'error'
+}
+
+export interface FieldDiscrepancy {
+  id: string
+  fieldName: string
+  fieldLabel: string
+  applicationValue: string | null
+  documentValue: string | null
+  documentSource: string
+  documentType: string
+  severity: 'critical' | 'warning' | 'info'
+  status: 'open' | 'resolved' | 'ignored'
+  resolution?: string
+  resolvedAt?: string
+}
+
+export interface ValidationResult {
+  applicationNumber: string
+  totalFieldsChecked: number
+  matchedFields: number
+  discrepancies: FieldDiscrepancy[]
+  expiredDocuments: {
+    documentId: string
+    documentName: string
+    documentType: string
+    expiryDate: string
+    daysExpired: number
+  }[]
+  overallMatch: number
+  recommendation: 'approved' | 'needs_review' | 'rejected'
+}
+
+export interface FinalSummary {
+  applicationNumber: string
+  applicationType: string
+  applicationTypeName: string
+  completeness: {
+    totalRequired: number
+    present: number
+    missing: string[]
+    score: number
+  }
+  validation: {
+    totalFieldsChecked: number
+    matchedFields: number
+    mismatchedFields: number
+    matchRate: number
+  }
+  issues: {
+    critical: number
+    warnings: number
+    info: number
+    total: number
+  }
+  expiredDocuments: {
+    documentName: string
+    documentType: string
+    expiryDate: string
+    daysExpired: number
+  }[]
+  overallStatus: 'approved' | 'needs_review' | 'rejected'
+  riskLevel: 'low' | 'medium' | 'high'
+  recommendation: string
+}

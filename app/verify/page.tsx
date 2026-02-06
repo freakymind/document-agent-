@@ -36,10 +36,12 @@ import { cn } from "@/lib/utils"
 function VerifyPageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const initialAppNum = searchParams.get("applicationNumber")
 
-  const [applicationNumber, setApplicationNumber] = useState(searchParams.get("applicationNumber") || "")
+  const [applicationNumber, setApplicationNumber] = useState(initialAppNum || "")
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [hasFetchedInitial, setHasFetchedInitial] = useState(false)
 
   const [application, setApplication] = useState<ExternalApplication | null>(null)
   const [documents, setDocuments] = useState<ExternalDocument[]>([])
@@ -49,14 +51,13 @@ function VerifyPageContent() {
 
   const sampleApplications = getSampleApplicationNumbers()
 
-  // Auto-fetch if application number is in URL
+  // Auto-fetch if application number is in URL (only once on mount)
   useEffect(() => {
-    const appNum = searchParams.get("applicationNumber")
-    if (appNum) {
-      setApplicationNumber(appNum)
-      handleFetchApplication(appNum)
+    if (initialAppNum && !hasFetchedInitial) {
+      setHasFetchedInitial(true)
+      handleFetchApplication(initialAppNum)
     }
-  }, [searchParams])
+  }, [initialAppNum, hasFetchedInitial])
 
   const handleFetchApplication = async (appNum?: string) => {
     const numToFetch = appNum || applicationNumber
@@ -121,22 +122,8 @@ function VerifyPageContent() {
     handleFetchApplication()
   }
 
-  const handleProceedToProcessing = () => {
-    // Store data in session for processing page
-    sessionStorage.setItem(
-      `verify-${applicationNumber}`,
-      JSON.stringify({
-        application,
-        documents,
-        appType,
-        documentMappings: documentMappings.map((m) => ({
-          ...m,
-          typeCode: mapDocumentToType(m.externalDocument).typeCode,
-        })),
-        missingDocuments,
-      }),
-    )
-    router.push(`/verify/process?applicationNumber=${applicationNumber}`)
+  const handleProceedToAgentVerification = () => {
+    router.push(`/verify/agents?applicationNumber=${applicationNumber}`)
   }
 
   const formatDocumentCode = (code: string) => code.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
@@ -383,8 +370,8 @@ function VerifyPageContent() {
                         : "All required documents found - ready for verification"}
                     </p>
                   </div>
-                  <Button onClick={handleProceedToProcessing} disabled={documents.length === 0}>
-                    Process Documents
+                  <Button onClick={handleProceedToAgentVerification} disabled={documents.length === 0}>
+                    Start Verification
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </div>
