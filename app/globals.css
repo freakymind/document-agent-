@@ -150,10 +150,6 @@
     -webkit-print-color-adjust: exact;
   }
 
-  .print\\:hidden {
-    display: none !important;
-  }
-
   /* Ensure all sections are visible when printing */
   [data-state="closed"] {
     display: block !important;
@@ -166,10 +162,5 @@
 
   .break-after-avoid {
     page-break-after: avoid;
-  }
-
-  /* Expand all content for print */
-  .print\\:block {
-    display: block !important;
   }
 }
